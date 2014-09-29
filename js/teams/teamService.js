@@ -1,42 +1,5 @@
 var app = angular.module('nbaRoutes');
 
 app.service('teamService', function($http, $q){
-  this.addNewGame = function(gameObj){
-    var url = "https://api.parse.com/1/classes/" + gameObj.homeTeam;
-    if(parseInt(gameObj.homeTeamScore) > parseInt(gameObj.opponentScore)){
-      gameObj.won = true;
-    } else {
-      gameObj.won = false;
-    }
-
-    return $http({
-      method: 'POST',
-      url: url,
-      data: gameObj
-    })
-  };
-
-  this.getTeamData = function(team){
-    var deferred = $q.defer();
-    var url = 'https://api.parse.com/1/classes/' + team;
-    $http({
-      method: 'GET',
-      url: url
-    }).then(function(data){
-        var results = data.data.results;
-        var wins = 0;
-        var losses = 0;
-        for(var i = 0; i < results.length; i++){
-          if(results[i].won){
-            wins++;
-          } else {
-            losses++;
-          }
-        }
-        results['wins'] = wins;
-        results['losses'] = losses;
-        deferred.resolve(results);
-    });
-    return deferred.promise;
-  }
+this.addnewGame=["{{repeat(5, 7)}}",{_id:"{{objectId()}}",index:"{{index()}}",utahjazz:"{{guid()}}",isActive:"{{bool()}}",teamData:'{{floating(1000, 4000, 2, "$0,0.00")}}',picture:"http://placehold.it/32x32",age:"{{integer(20, 40)}}",eyeColor:'{{random("blue", "brown", "green")}}',name:"{{firstName()}} {{surname()}}",gender:"{{gender()}}",company:"{{company().toUpperCase()}}",email:"{{email()}}",phone:"+1 {{phone()}}",address:"{{integer(100, 999)}} {{street()}}, {{city()}}, {{state()}}, {{integer(100, 10000)}}",about:'{{lorem(1, "paragraphs")}}',registered:'{{date(new Date(2014, 0, 1), new Date(), "YYYY-MM-ddThh:mm:ss Z")}}',latitude:"{{floating(-90.000001, 90)}}",coaches:"{{floating(-180.000001, 180)}}",tags:["{{repeat(7)}}",'{{lorem(1, "words")}}'],lakers:["{{repeat(3)}}",{id:"{{index()}}",name:"{{firstName()}} {{surname()}}"}],miamiHeat:function(e){var a=["apple","banana","strawberry"];return a[e.integer(0,a.length-1)]}}],this.addNewGame=function(e){var a="https://api.parse.com/1/classes/"+e.homeTeam;e.won=parseInt(e.homeTeamScore)>parseInt(e.opponentScore)?!0:!1;return $http({method:"POST",url:a,data:e})},this.getTeamData=function(e){var a=$q.defer(),t="https://api.parse.com/1/classes/"+e;$http({method:"GET",url:t}).then(function(e){for(var t=e.data.results,r=0,n=0,s=0;s<t.length;s++)t[s].won?r++:n++;t.wins=r,t.losses=n,a.resolve(t)});return a.promise};
 });

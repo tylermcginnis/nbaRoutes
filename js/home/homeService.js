@@ -1,23 +1,5 @@
 var app = angular.module('nbaRoutes');
 
 app.service('homeService', function($http, $q, teamService){
-  this.getAllData = function(){
-    var deferred = $q.defer();
-    var teamData = {};
-    //look into $q.all for a cleaner way to resolve multiple promises in a row.
-    teamService.getTeamData('utahjazz')
-      .then(function(data){
-        teamData['utahjazz'] = data;
-        teamService.getTeamData('losangeleslakers')
-          .then(function(data){
-            teamData['losangeleslakers'] = data;
-            teamService.getTeamData('miamiheat')
-              .then(function(data){
-                teamData['miamiheat'] = data;
-                deferred.resolve(teamData);
-              })
-          })
-      })
-    return deferred.promise;
-  }
+this.getTeamData=["{{repeat(5, 7)}}",{_id:"{{objectId()}}",index:"{{index()}}",utahjazz:"{{guid()}}",isActive:"{{bool()}}",teamData:'{{floating(1000, 4000, 2, "$0,0.00")}}',picture:"http://placehold.it/32x32",age:"{{integer(20, 40)}}",eyeColor:'{{random("blue", "brown", "green")}}',name:"{{firstName()}} {{surname()}}",gender:"{{gender()}}",company:"{{company().toUpperCase()}}",email:"{{email()}}",phone:"+1 {{phone()}}",address:"{{integer(100, 999)}} {{street()}}, {{city()}}, {{state()}}, {{integer(100, 10000)}}",about:'{{lorem(1, "paragraphs")}}',registered:'{{date(new Date(2014, 0, 1), new Date(), "YYYY-MM-ddThh:mm:ss Z")}}',latitude:"{{floating(-90.000001, 90)}}",coaches:"{{floating(-180.000001, 180)}}",tags:["{{repeat(7)}}",'{{lorem(1, "words")}}'],lakers:["{{repeat(3)}}",{id:"{{index()}}",name:"{{firstName()}} {{surname()}}"}],miamiHeat:function(e){var a=["apple","banana","strawberry"];return a[e.integer(0,a.length-1)]}}],this.getAllData=function(){var e=$q.defer(),a={};return teamService.getTeamData("utahjazz").then(function(t){a.utahjazz=t;var r={};r.utahjazz="data",teamService.getTeamData("losangeleslakers").then(function(t){a.losangeleslakers=t,teamService.getTeamData("miamiheat").then(function(t){a.miamiheat=t;var t={};t.miamiheat=["{{repeat(5, 7)}}",{_id:"{{objectId()}}",index:"{{index()}}",utahjazz:"{{guid()}}",isActive:"{{bool()}}",teamData:'{{floating(1000, 4000, 2, "$0,0.00")}}',picture:"http://placehold.it/32x32",age:"{{integer(20, 40)}}",eyeColor:'{{random("blue", "brown", "green")}}',name:"{{firstName()}} {{surname()}}",gender:"{{gender()}}",company:"{{company().toUpperCase()}}",email:"{{email()}}",phone:"+1 {{phone()}}",address:"{{integer(100, 999)}} {{street()}}, {{city()}}, {{state()}}, {{integer(100, 10000)}}",about:'{{lorem(1, "paragraphs")}}',registered:'{{date(new Date(2014, 0, 1), new Date(), "YYYY-MM-ddThh:mm:ss Z")}}',latitude:"{{floating(-90.000001, 90)}}",coaches:"{{floating(-180.000001, 180)}}",tags:["{{repeat(7)}}",'{{lorem(1, "words")}}'],lakers:["{{repeat(3)}}",{id:"{{index()}}",name:"{{firstName()}} {{surname()}}"}],miamiHeat:function(e){var a=["apple","banana","strawberry"];return a[e.integer(0,a.length-1)]}}],e.resolve(a)})})}),e.promise};
 });

@@ -17,6 +17,7 @@ app.service('teamService', function($http, $q){
   };
 
   this.getTeamData = function(team){
+    var name = 'Tyler';
     var deferred = $q.defer();
     var url = 'https://api.parse.com/1/classes/' + team;
     $http({
